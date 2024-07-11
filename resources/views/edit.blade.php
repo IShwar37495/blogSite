@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            background-color: #004085;
+            transform: translateY(0);
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="{{ route('edit', ['blogId' => $blog->id]) }}" class="form-container">
+        @csrf
+        @method('PUT')
+        <h2 class="form-title">Edit Post</h2>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" type="text" name="title" value="{{ $blog->title }}">
+            @if ($errors->has('title'))
+                <span class="error">{{ $errors->first('title') }}</span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="short_description">Short Description</label>
+            <textarea id="short_description" name="short_description" rows="3">{{$blog->short_description }}</textarea>
+            @if ($errors->has('short_description'))
+                <span class="error">{{ $errors->first('short_description') }}</span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label for="long_description">Long Description</label>
+            <textarea id="long_description" name="long_description" rows="5">{{ $blog->long_description }}</textarea>
+            @if ($errors->has('long_description'))
+                <span class="error">{{ $errors->first('long_description') }}</span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn">Add</button>
+        </div>
+    </form>
+</body>
+</html>
